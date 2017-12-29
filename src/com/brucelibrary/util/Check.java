@@ -8,7 +8,9 @@ package com.brucelibrary.util;
  * @author bruce
  */
 public class Check {
-
+/*
+    
+    */
     public static boolean isNum(String paramString) {
 	if (paramString.length() == 0) {
 	    return false;
