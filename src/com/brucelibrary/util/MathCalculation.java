@@ -70,7 +70,7 @@ public class MathCalculation {
      */
     public LinkedList combinationSelect(String[] dataList, int n) {
         System.out.println(String.format("C(%d, %d) = %d", dataList.length, n, combination(dataList.length, n)));
-        combinationResult = new LinkedList();
+        combinationResult = new LinkedList<ArrayList>();
         combinationSelect(dataList, 0, new String[n], 0);
         //combinationSelect(dataList, 0, combinationResult, 0);
         return combinationResult;
@@ -89,7 +89,7 @@ public class MathCalculation {
         int resultCount = resultIndex + 1;
         if (resultCount > resultLen) { // 全部选择完时，输出组合结果  
             //System.out.println(Arrays.asList(resultList));
-            combinationResult.add(Arrays.asList(resultList.clone()));
+            combinationResult.add(new ArrayList<>(Arrays.asList(resultList.clone())));
             return;
         }
 
