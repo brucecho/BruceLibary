@@ -69,11 +69,8 @@ public class MathCalculation {
      * @param n 选择个数
      */
     public LinkedList combinationSelect(String[] dataList, int n) {
-//        System.out.println(String.format("C(%d, %d) = %s", dataList.length, n, ""+combination(dataList.length, n)));
-        System.out.println("number="+combination(dataList.length, n));
         combinationResult = new LinkedList<ArrayList>();
         combinationSelect(dataList, 0, new String[n], 0);
-        //combinationSelect(dataList, 0, combinationResult, 0);
         return combinationResult;
     }
 
@@ -89,12 +86,11 @@ public class MathCalculation {
         int resultLen = resultList.length;
         int resultCount = resultIndex + 1;
         if (resultCount > resultLen) { // 全部选择完时，输出组合结果  
-            //System.out.println(Arrays.asList(resultList));
             combinationResult.add(new ArrayList<>(Arrays.asList(resultList.clone())));
             return;
         }
 
-        // 递归选择下一个  
+        //遞迴選擇下一個  
         for (int i = dataIndex; i < dataList.length + resultCount - resultLen; i++) {
             resultList[resultIndex] = dataList[i];
             combinationSelect(dataList, i + 1, resultList, resultIndex + 1);
