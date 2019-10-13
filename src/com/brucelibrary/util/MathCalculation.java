@@ -69,7 +69,8 @@ public class MathCalculation {
      * @param n 选择个数
      */
     public LinkedList combinationSelect(String[] dataList, int n) {
-        System.out.println(String.format("C(%d, %d) = %d", dataList.length, n, combination(dataList.length, n)));
+//        System.out.println(String.format("C(%d, %d) = %s", dataList.length, n, ""+combination(dataList.length, n)));
+        System.out.println("number="+combination(dataList.length, n));
         combinationResult = new LinkedList<ArrayList>();
         combinationSelect(dataList, 0, new String[n], 0);
         //combinationSelect(dataList, 0, combinationResult, 0);
