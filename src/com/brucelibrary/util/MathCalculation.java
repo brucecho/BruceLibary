@@ -18,15 +18,18 @@ import java.util.List;
  */
 public class MathCalculation {
 
+    private LinkedList arrangementResult;
     /**
      * 排列选择（从列表中选择n个排列）
      *
      * @param dataList 待选列表
      * @param n 选择个数
      */
-    public void arrangementSelect(String[] dataList, int n) {
+    public LinkedList arrangementSelect(String[] dataList, int n) {
         System.out.println(String.format("A(%d, %d) = %d", dataList.length, n, arrangement(dataList.length, n)));
+        arrangementResult = new LinkedList<ArrayList>();
         arrangementSelect(dataList, new String[n], 0);
+        return arrangementResult;
     }
 
     /**
