@@ -133,60 +133,44 @@ public class MathCalculation {
         return (n >= m) ? factorial(n) / factorial(n - m) / factorial(m) : 0;
     }
 
-    public void combinationA(char[] chars) {
-        char[] subchars = new char[chars.length]; // 存储子组合数据的数组
-        // 全组合问题就是所有元素(记为n)中选1个元素的组合, 加上选2个元素的组合...加上选n个元素的组合的和
-        for (int i = 0; i < chars.length; ++i) {
-            final int m = i + 1;
-            combinationA(chars, chars.length, m, subchars, m);
-        }
-    }
+    private LinkedList combinationBResult;
 
-    public void combinationA(char[] chars, int n, int m, char[] subchars, int subn) {
-        if (m == 0) { // 出口
-            for (int i = 0; i < subn; ++i) {
-                System.out.print(subchars[i]);
-            }
-            System.out.println();
-        } else {
-            for (int i = n; i >= m; --i) { // 从后往前依次选定一个
-                subchars[m - 1] = chars[i - 1]; // 选定一个后
-                combinationA(chars, i - 1, m - 1, subchars, subn); // 从前i-1个里面选取m-1个进行递归
-            }
-        }
-    }
-
-    public void combinationB(char[] chars,int intNewArrayLength) {
-        char[] subchars = new char[intNewArrayLength];
-        combinationB(chars, 2, 0, subchars, intNewArrayLength, 0);
+    /**給定一個字元陣列，以及定義一個字串長度
+     * 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
+     *
+     * @param chars 可以擺放的字元陣列
+     * @param intNewArrayLength 新的字串長度
+     */
+    public LinkedList combinationB(String[] chars, int intNewArrayLength) {
+        combinationBResult = new LinkedList<ArrayList>();
+        String[] subchars = new String[intNewArrayLength];
+        combinationB(chars, chars.length, 0, subchars, intNewArrayLength, 0);
+        return combinationBResult;
     }
 
     /**
      *
      * @param chars 可以選擇的字元陣列
-     * @param n 可以選擇的字元陣列的長度
-     * @param m 目前已選擇的字元陣列數量
+     * @param m 可以選擇的字元陣列的長度
+     * @param n 目前已選擇的字元陣列數量
      * @param subchars 排列後的陣列結果
-     * @param subn 排列後的陣列長度
-     * @param subm 目前已排列的陣列長度
+     * @param suba 排列後的陣列長度
+     * @param subb 目前已排列的陣列長度
      */
-    public void combinationB(char[] chars, int m, int n, char[] subchars, int suba, int subb) {
-//        System.out.print("m="+m+" n="+n+" suba="+suba+" subb="+subb+" ");
+    public void combinationB(String[] chars, int m, int n, String[] subchars, int suba, int subb) {
         if (suba == subb) {
+//            for (int i = 0; i < subb; ++i) {
+//                System.out.print(subchars[i]);
+//            }
 //            System.out.println("");
-            for (int i = 0; i < subb; ++i) {
-                System.out.print(subchars[i]);
-            }
-            System.out.println("");
-//            System.out.println("return");
+            combinationBResult.add(new ArrayList<>(Arrays.asList(subchars.clone())));
             return;
         } else {
             int a = 0;
             for (int i = 0; i < m; i++) {
                 subchars[subb] = chars[i];
-//                System.out.println("m="+m+" n="+n+" suba="+suba+" subb="+subb+" i="+i+" subchars[subb]="+subchars[subb]);
                 a++;
-                combinationB(chars, m, n + 1, subchars, suba, subb+1);
+                combinationB(chars, m, n + 1, subchars, suba, subb + 1);
             }
         }
     }
