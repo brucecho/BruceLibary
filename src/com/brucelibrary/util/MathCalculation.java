@@ -133,8 +133,7 @@ public class MathCalculation {
     private LinkedList combinationBResult;
 
     /**
-     * 給定一個字元陣列，以及定義一個字串長度 
-     * 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
+     * 給定一個字元陣列，以及定義一個字串長度 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
      *
      * @param chars 可以擺放的字元陣列
      * @param intNewArrayLength 新的字串長度
@@ -172,10 +171,9 @@ public class MathCalculation {
             }
         }
     }
-    
+
     /**
-     * 給定一個字元陣列，以及定義一個字串長度 
-     * 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
+     * 給定一個字元陣列，以及定義一個字串長度 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
      *
      * @param chars 可以擺放的字元陣列
      * @param intNewArrayLength 新的字串長度
@@ -196,17 +194,21 @@ public class MathCalculation {
      * @param suba 排列後的陣列長度
      * @param subb 目前已排列的陣列長度
      */
-    public void combinationC(String[] chars, int m, int n, String[] subchars, int suba, int subb,int[] charLimit) {
+    public void combinationC(String[] chars, int m, int n, String[] subchars, int suba, int subb, int[] charLimit) {
         if (suba == subb) {
             int[] countResult = new int[m];
             for (int i = 0; i < subchars.length; ++i) {
-                for(int j=0;j<m;j++){
-                    if(subchars[i].equals(chars[j])){
-                        countResult[j]=
+                for (int j = 0; j < m; j++) {
+                    if (subchars[i].equals(chars[j])) {
+                        countResult[j] = countResult[j] + 1;
                     }
                 }
             }
-            System.out.println("");
+            for (int i = 0; i < chars.length; i++) {
+                if (charLimit[i] < countResult[i]) {
+                    return;
+                }
+            }
             combinationBResult.add(new ArrayList<>(Arrays.asList(subchars.clone())));
             return;
         } else {
