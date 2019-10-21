@@ -5,12 +5,9 @@
  */
 package com.brucelibrary.util;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -135,7 +132,8 @@ public class MathCalculation {
 
     private LinkedList combinationBResult;
 
-    /**給定一個字元陣列，以及定義一個字串長度
+    /**
+     * 給定一個字元陣列，以及定義一個字串長度 
      * 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
      *
      * @param chars 可以擺放的字元陣列
@@ -173,5 +171,75 @@ public class MathCalculation {
                 combinationB(chars, m, n + 1, subchars, suba, subb + 1);
             }
         }
+    }
+    
+    /**
+     * 給定一個字元陣列，以及定義一個字串長度 
+     * 計算將這個字元陣列擺放在字元長度中，總共會有多少種組合
+     *
+     * @param chars 可以擺放的字元陣列
+     * @param intNewArrayLength 新的字串長度
+     */
+    public LinkedList combinationC(String[] chars, int intNewArrayLength) {
+        combinationBResult = new LinkedList<ArrayList>();
+        String[] subchars = new String[intNewArrayLength];
+        combinationB(chars, chars.length, 0, subchars, intNewArrayLength, 0);
+        return combinationBResult;
+    }
+
+    /**
+     *
+     * @param chars 可以選擇的字元陣列
+     * @param m 可以選擇的字元陣列的長度
+     * @param n 目前已選擇的字元陣列數量
+     * @param subchars 排列後的陣列結果
+     * @param suba 排列後的陣列長度
+     * @param subb 目前已排列的陣列長度
+     */
+    public void combinationC(String[] chars, int m, int n, String[] subchars, int suba, int subb,int[] charLimit) {
+        if (suba == subb) {
+            int[] countResult = new int[m];
+            for (int i = 0; i < subchars.length; ++i) {
+                for(int j=0;j<m;j++){
+                    if(subchars[i].equals(chars[j])){
+                        countResult[j]=
+                    }
+                }
+            }
+            System.out.println("");
+            combinationBResult.add(new ArrayList<>(Arrays.asList(subchars.clone())));
+            return;
+        } else {
+            int a = 0;
+            for (int i = 0; i < m; i++) {
+                subchars[subb] = chars[i];
+                a++;
+                combinationB(chars, m, n + 1, subchars, suba, subb + 1);
+            }
+        }
+    }
+
+    /**
+     * 傳入兩種商品的單價，以及總共有多少錢 計算總共有多少種購買的組合方式
+     *
+     * @param goodsAPrice 商品A的單價
+     * @param goodsBPrice 商品B的單價
+     * @param totalMoney 總共有多少錢
+     * @return
+     */
+    public ArrayList payCombination(int goodsAPrice, int goodsBPrice, int totalMoney) {
+        //check input data
+        if (goodsAPrice <= 0 || goodsBPrice <= 0 || totalMoney <= 0) {
+            return null;
+        }
+        ArrayList resultList = new ArrayList<String>();
+        int counta = totalMoney / goodsAPrice;
+        int countb = 0;
+        while (counta >= 0) {
+            countb = (totalMoney - (goodsAPrice * counta)) / goodsBPrice;
+            resultList.add(counta + "-" + countb);
+            counta--;
+        }
+        return resultList;
     }
 }
