@@ -240,18 +240,30 @@ public class MathCalculation {
         int countb = 0;
         if (goodsAPrice >= goodsBPrice) {
             counta = totalMoney / goodsAPrice;
+            if (counta > 20) {
+                counta = 20;
+            }
             while (counta >= 0) {
                 countb = (totalMoney - (goodsAPrice * counta)) / goodsBPrice;
                 if ((counta + countb) <= limitCount) {
+                    resultList.add(counta + "-" + countb);
+                } else {
+                    countb = limitCount - counta;
                     resultList.add(counta + "-" + countb);
                 }
                 counta--;
             }
         } else {
             countb = totalMoney / goodsBPrice;
+            if (countb > 20) {
+                countb = 20;
+            }
             while (countb >= 0) {
                 counta = (totalMoney - (goodsBPrice * countb)) / goodsAPrice;
                 if ((counta + countb) <= limitCount) {
+                    resultList.add(counta + "-" + countb);
+                } else {
+                    counta = limitCount - countb;
                     resultList.add(counta + "-" + countb);
                 }
                 countb--;
