@@ -227,20 +227,35 @@ public class MathCalculation {
      * @param goodsAPrice 商品A的單價
      * @param goodsBPrice 商品B的單價
      * @param totalMoney 總共有多少錢
+     * @param limitCount
      * @return
      */
-    public ArrayList payCombination(int goodsAPrice, int goodsBPrice, int totalMoney) {
+    public ArrayList payCombination(int goodsAPrice, int goodsBPrice, int totalMoney, int limitCount) {
         //check input data
         if (goodsAPrice <= 0 || goodsBPrice <= 0 || totalMoney <= 0) {
             return null;
         }
         ArrayList resultList = new ArrayList<String>();
-        int counta = totalMoney / goodsAPrice;
+        int counta = 0;
         int countb = 0;
-        while (counta >= 0) {
-            countb = (totalMoney - (goodsAPrice * counta)) / goodsBPrice;
-            resultList.add(counta + "-" + countb);
-            counta--;
+        if (goodsAPrice >= goodsBPrice) {
+            counta = totalMoney / goodsAPrice;
+            while (counta >= 0) {
+                countb = (totalMoney - (goodsAPrice * counta)) / goodsBPrice;
+                if ((counta + countb) <= limitCount) {
+                    resultList.add(counta + "-" + countb);
+                }
+                counta--;
+            }
+        } else {
+            countb = totalMoney / goodsBPrice;
+            while (countb >= 0) {
+                counta = (totalMoney - (goodsBPrice * countb)) / goodsAPrice;
+                if ((counta + countb) <= limitCount) {
+                    resultList.add(counta + "-" + countb);
+                }
+                countb--;
+            }
         }
         return resultList;
     }
