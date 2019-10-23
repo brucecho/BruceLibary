@@ -178,10 +178,10 @@ public class MathCalculation {
      * @param chars 可以擺放的字元陣列
      * @param intNewArrayLength 新的字串長度
      */
-    public LinkedList combinationC(String[] chars, int intNewArrayLength) {
+    public LinkedList combinationC(String[] chars, int intNewArrayLength, int[] charLimit) {
         combinationBResult = new LinkedList<ArrayList>();
         String[] subchars = new String[intNewArrayLength];
-        combinationB(chars, chars.length, 0, subchars, intNewArrayLength, 0);
+        combinationC(chars, chars.length, 0, subchars, intNewArrayLength, 0, charLimit);
         return combinationBResult;
     }
 
@@ -232,10 +232,10 @@ public class MathCalculation {
      */
     public ArrayList payCombination(int goodsAPrice, int goodsBPrice, int totalMoney, int limitCount) {
         //check input data
-        if (goodsAPrice <= 0 || goodsBPrice <= 0 || totalMoney <= 0) {
+        if (goodsAPrice < 0 || goodsBPrice < 0 || totalMoney < 0) {
             return null;
         }
-        ArrayList resultList = new ArrayList<String>();
+        ArrayList resultList = new ArrayList();
         int counta = 0;
         int countb = 0;
         if (goodsAPrice >= goodsBPrice) {
