@@ -216,7 +216,7 @@ public class MathCalculation {
             for (int i = 0; i < m; i++) {
                 subchars[subb] = chars[i];
                 a++;
-                combinationB(chars, m, n + 1, subchars, suba, subb + 1);
+                combinationC(chars, m, n + 1, subchars, suba, subb + 1,charLimit);
             }
         }
     }
