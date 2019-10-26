@@ -29,19 +29,27 @@ public class Excel {
         this.resultMessage = resultMessage;
     }
 
-    public void ExportExcel(TableView tableview, String outputFilename,String sheetName) throws Exception {
+    public void ExportExcel(TableView tableview, String outputFilename, String sheetName) throws Exception {
         if (tableview == null || tableview.getItems().size() == 0) {
             return;
         }
         HSSFWorkbook resultExcel = new HSSFWorkbook();
         HSSFSheet resultSheet = resultExcel.createSheet(sheetName);
+        resultSheet.createFreezePane(0, 1);
         HSSFRow row = resultSheet.createRow(0);
+        int rowcount = 0;
 
         for (int i = 0; i < tableview.getColumns().size(); i++) {
             row.createCell(i).setCellValue(((TableColumn) tableview.getColumns().get(i)).getText().trim());
         }
         for (int i = 0; i < tableview.getItems().size(); i++) {
-            row = resultSheet.createRow(i + 1);
+            if (rowcount > 60000) {
+                resultSheet = resultExcel.createSheet(sheetName + " " + i);
+                resultSheet.createFreezePane(0, 1);
+                rowcount = 0;
+            }
+            row = resultSheet.createRow(rowcount + 1);
+            rowcount++;
             for (int j = 0; j < tableview.getColumns().size(); j++) {
                 if (((TableColumn) tableview.getColumns().get(j)).getCellData(i) != null) {
                     row.createCell(j).setCellValue(((TableColumn) tableview.getColumns().get(j)).getCellData(i).toString());
@@ -50,7 +58,7 @@ public class Excel {
                 }
             }
         }
-        resultSheet.createFreezePane(0, 1);
+
         FileOutputStream output = new FileOutputStream(outputFilename);
         resultExcel.write(output);
         output.close();
